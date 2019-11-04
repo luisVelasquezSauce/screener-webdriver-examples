@@ -1,5 +1,10 @@
 from selenium import webdriver
 import os
+
+protocol = 'https' if ('SCREENER_USE_SSL' in os.environ and os.environ['SCREENER_USE_SSL'] == 'true') else 'http'
+hub_url = os.environ['SCREENER_HUB_HOST'] if 'SCREENER_HUB_HOST' in os.environ else 'hub.screener.io'
+url = "{}://{}/wd/hub".format(protocol, hub_url)
+
 screener = {
   'name': 'Python Example',
   'resolution': '1280x1024',
@@ -12,7 +17,7 @@ caps = {
 }
 driver = webdriver.Remote(
   desired_capabilities=caps,
-  command_executor="https://hub.screener.io/wd/hub"
+  command_executor=url
 )
 driver.get("https://screener.io")
 driver.execute_script('/*@screener.snapshot*/', 'Home')

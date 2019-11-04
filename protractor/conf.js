@@ -1,5 +1,9 @@
+const PROTOCOL = 'SCREENER_USE_SSL' in process.env && process.env.SCREENER_USE_SSL == 'true' ? 'https' : 'http';
+const HUB_URL = process.env.SCREENER_HUB_HOST || 'hub.screener.io';
+const URL = `${PROTOCOL}://${HUB_URL}/wd/hub`
+
 exports.config = {
-  seleniumAddress: 'https://hub.screener.io/wd/hub',
+  seleniumAddress: URL,
   specs: ['spec.js'],
   capabilities: {
     browserName: 'chrome',

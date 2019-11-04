@@ -1,7 +1,9 @@
+const PROTOCOL = 'SCREENER_USE_SSL' in process.env && process.env.SCREENER_USE_SSL == 'true' ? 'https' : 'http';
+
 exports.config = {
-  host: 'hub.screener.io',
-  port: 443,
-  protocol: 'https',
+  host: process.env.SCREENER_HUB_HOST || 'hub.screener.io',
+  port: process.env.SCREENER_HUB_PORT || 443,
+  protocol: PROTOCOL,
   specs: [
     './specs/**/*.js'
   ],
