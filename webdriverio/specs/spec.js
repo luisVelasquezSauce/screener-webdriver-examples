@@ -1,14 +1,13 @@
 const assert = require('assert');
 
 describe('WebdriverIO Example', () => {
-  it('should take snapshot of homepage', () => {
-    browser.url('https://screener.io');
-    browser.execute('/*@screener.init*/', 'WebdriverIO Example');
-    browser.execute('/*@screener.snapshot*/', 'Home');
+  it('should take snapshot of homepage', async () => {
+    await browser.url('https://www.html5rocks.com/en/tutorials/webcomponents/shadowdom/')
+    const title = await browser.getTitle()
 
-    // @screener.end will return screener results
-    // Note: @screener.end will close your test session, so it must be called just before the end of your test
-    const {value} = browser.execute('/*@screener.end*/');
-    assert.ifError(value.message);
+    assert.strictEqual(title, 'Shadow DOM 101 - HTML5 Rocks')
+
+    await projectLogo.waitForDisplayed(3000);
+    assert.ok(projectLogo.isDisplayed);
   });
 });
